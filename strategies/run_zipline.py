@@ -8,7 +8,7 @@ from zipline import run_algorithm
  
 # These are used by test_examples.py to discover the examples to run.
 from zipline.utils.calendars import register_calendar, get_calendar
-from strategies.buy_and_hold import BuyAndHold
+from strategies.base_strategy import BaseStrategy
 from os import environ
 
 
@@ -56,9 +56,7 @@ def run_strategy(strategy_name):
     """
     Run an example module from zipline.examples.
     """
-    mod = None
-    
-    mod = BuyAndHold()
+    mod = BaseStrategy
  
     register_calendar("YAHOO", get_calendar("NYSE"), force=True)
  
@@ -67,12 +65,8 @@ def run_strategy(strategy_name):
         handle_data=getattr(mod, 'handle_data', None),
         before_trading_start=getattr(mod, 'before_trading_start', None),
         analyze=getattr(mod, 'analyze', None),
-        bundle='quantopian-quandl',
+        bundle='quandl',
         environ=environ,
         # Provide a default capital base, but allow the test to override.
         **merge({'capital_base': 1e7}, mod._test_args())
     )
-
-
- 
- 
