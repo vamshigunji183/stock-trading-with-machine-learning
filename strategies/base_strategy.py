@@ -3,7 +3,7 @@ class BaseStrategy:
     stocks = []
     
     def initialize(self, context):
-        context.stocks = self.stocks
+        pass
      
     def handle_data(self, context, data):
         pass
